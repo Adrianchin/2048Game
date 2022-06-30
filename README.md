@@ -13,12 +13,17 @@ Endpoints:
 /newGame - Creates new 2048 game (automatically does this on start though)
 
 /up - Push up
+
 /down - Push down
+
 /right - Push right
+
 /left - Push left
 
 Messages for winning
+
 Messages for loss
+
 Messages for move not possible
 
 Unit testing: jest test (may need to comment the app.listen out though, otherwise it will hang)
