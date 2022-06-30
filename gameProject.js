@@ -59,13 +59,6 @@ function showGrid(grid, note = null){//Shows grid in browser
     return message
 }
 
-/*
-function create2048(){//Creates new board
-    grid = new Array(4).fill().map(()=>Array(4).fill(0))
-    generateNumber(grid)//Creates new value
-    generateNumber(grid)//Creates new value
-}
-*/
 function up(grid){//Push up command
     if(moveUp(grid)){//Only works if up counts a movement (ie. no moves, we dont check win/loss condition, prevents early loss)
         mergeColUp(grid)//Merge values
@@ -75,7 +68,7 @@ function up(grid){//Push up command
         }
         generateNumber(grid) //Generate number, before is so we can ensure grid is full now
 
-        if(isLost(grid)){//Loss condition - Only returns if NO moves possible
+        if(isLost(grid)){//Loss condition - Only returns if NO moves possible, could be a loss if 2 or 4 is chosen (a lucky 2 would be a win and you got a 4, or vice versa)
             return -1//Return -1 for loss
         }
     }
@@ -128,7 +121,7 @@ function right(grid){//Right command
 }
 
 function generateNumber(grid){//Generate new random numbers
-    let randomNumber = Math.random()
+    let randomNumber = Math.random() //creates random number for check
     let number
     if(randomNumber >= 0.9){//10% value of 4
         number = 4
@@ -197,6 +190,10 @@ function moveLeft(grid){//Move left (move only)
     }
     return moves
 }
+
+/*
+Note: Part of me wonders if there is a snazy way to do this in a hash map. Would love to mess around with that, but to save time, I used a O(n^2) brute force approach.
+*/
 
 function moveUp(grid){//Move up (move only)
     let moves = 0
