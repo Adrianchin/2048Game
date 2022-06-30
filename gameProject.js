@@ -229,6 +229,34 @@ function moveDown(grid){//Move down (move only)
     return moves
 }
 
+function mergeRowLeft(grid){//merge left (merge only)
+    for(let i=0; i<grid.length; i++){//each row top to bottom
+        for(let j=1; j<grid[i].length; j++){//each column right to left
+            if(grid[i][j] == grid[i][j-1]){
+                grid[i][j-1] = 2*grid[i][j-1]
+                grid[i][j] = 0
+            }
+        }
+    }
+}
+
+
+
+function mergeColUp(grid){//merge up (merge only)
+    for(let j=0; j<grid[0].length; j++){//each column left to right
+        for(let i=1; i<grid.length; i++){//each row bottom up
+            if(grid[i][j] === grid[i-1][j]){
+                grid[i-1][j] = 2*grid[i-1][j]
+                grid[i][j] = 0
+            }
+        }
+    }
+}
+
+/*
+TO REMOVE BELOW - redundant
+*/
+
 //Should remove mergeRowRight - redundant
 function mergeRowRight(grid){//merge right (merge only) <- only need 1 merge Row, other is redundant. Should remove mergeRowRight
     for(let i=0; i<grid.length; i++){//each row top to bottom
@@ -241,34 +269,12 @@ function mergeRowRight(grid){//merge right (merge only) <- only need 1 merge Row
     }
 }
 
-function mergeRowLeft(grid){//merge left (merge only)
-    for(let i=0; i<grid.length; i++){//each row top to bottom
-        for(let j=1; j<grid[i].length; j++){//each column right to left
-            if(grid[i][j] == grid[i][j-1]){
-                grid[i][j-1] = 2*grid[i][j-1]
-                grid[i][j] = 0
-            }
-        }
-    }
-}
-
 //Should remove mergeColDown - redundant
 function mergeColDown(grid){//merge down (merge only) <- only need 1 mergeCol, other is redundant. Should remove mergeColDown
     for(let j=0; j<grid[0].length; j++){//each column left to right
         for(let i=grid.length-2; i>=0; i--){//each row bottom up
             if(grid[i][j] === grid[i+1][j]){
                 grid[i+1][j] = 2*grid[i+1][j]
-                grid[i][j] = 0
-            }
-        }
-    }
-}
-
-function mergeColUp(grid){//merge up (merge only)
-    for(let j=0; j<grid[0].length; j++){//each column left to right
-        for(let i=1; i<grid.length; i++){//each row bottom up
-            if(grid[i][j] === grid[i-1][j]){
-                grid[i-1][j] = 2*grid[i-1][j]
                 grid[i][j] = 0
             }
         }
