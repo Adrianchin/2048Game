@@ -61,7 +61,7 @@ function showGrid(grid, note = null){//Shows grid in browser
 
 function up(grid){//Push up command
     if(moveUp(grid)){//Only works if up counts a movement (ie. no moves, we dont check win/loss condition, prevents early loss)
-        mergeColUp(grid)//Merge values
+        mergeColUp(grid)//Merge values - I made mergeColUp and mergeColDown, realized I only need 1, the other is redundant 
         moveUp(grid)//move again to update merge values
         if(isWin(grid)){//Win test condition
             return 1//Return 1 for win
@@ -76,7 +76,7 @@ function up(grid){//Push up command
 }
 function down(grid){//Move down command
     if(moveDown(grid)){
-        mergeColDown(grid)
+        mergeColUp(grid)//Merge values - I made mergeColUp and mergeColDown, realized I only need 1, the other is redundant 
         moveDown(grid)
         if(isWin(grid)){
             return 1
@@ -91,7 +91,7 @@ function down(grid){//Move down command
 }
 function left(grid){//Move left command
     if(moveLeft(grid)){
-        mergeRowLeft(grid)
+        mergeRowLeft(grid)//Merge values - I made mergeRowLeft and mergeRowRight, realized I only need 1, the other is redundant 
         moveLeft(grid)
         if(isWin(grid)){
             return 1
@@ -106,7 +106,7 @@ function left(grid){//Move left command
 }
 function right(grid){//Right command
     if(moveRight(grid)){
-        mergeRowRight(grid)
+        mergeRowLeft(grid)//Merge values - I made mergeRowLeft and mergeRowRight, realized I only need 1, the other is redundant 
         moveRight(grid)
         if(isWin(grid)){
             return 1
@@ -229,8 +229,8 @@ function moveDown(grid){//Move down (move only)
     return moves
 }
 
-
-function mergeRowRight(grid){//merge right (merge only)
+//Should remove mergeRowRight - redundant
+function mergeRowRight(grid){//merge right (merge only) <- only need 1 merge Row, other is redundant. Should remove mergeRowRight
     for(let i=0; i<grid.length; i++){//each row top to bottom
         for(let j=grid[i].length-2; j>=0; j--){//each column right to left
             if(grid[i][j] == grid[i][j+1]){
@@ -252,7 +252,8 @@ function mergeRowLeft(grid){//merge left (merge only)
     }
 }
 
-function mergeColDown(grid){//merge down (merge only)
+//Should remove mergeColDown - redundant
+function mergeColDown(grid){//merge down (merge only) <- only need 1 mergeCol, other is redundant. Should remove mergeColDown
     for(let j=0; j<grid[0].length; j++){//each column left to right
         for(let i=grid.length-2; i>=0; i--){//each row bottom up
             if(grid[i][j] === grid[i+1][j]){

@@ -186,7 +186,7 @@ test("Tests for move columns down command", ()=>{
     expect(result3).toEqual(0)
 })
 
-test("Tests for merge row right command", ()=>{
+test("Tests for merge row right command", ()=>{ //only need 1 mergeCol, other is redundant. Should remove mergeRowRight
     let gridTest1 = [[2,2,2,2],[4,0,4,0],[0,0,0,0],[2,0,2,2]]
     let gridTest2 = [[2,2,2,2],[0,2,2,0],[0,0,0,0],[2,0,0,2]]
     let gridTest3 = [[2,8,4,4],[2,2,4,4],[2,2,2,2],[2,2,2,2]]
@@ -225,7 +225,7 @@ test("Tests for merge columns up command", ()=>{
     expect(gridTest3).toEqual([[4,16,8,8],[0,0,0,0],[4,4,4,4],[0,0,0,0]])
 })
 
-test("Tests for merge columns down command", ()=>{
+test("Tests for merge columns down command", ()=>{ //only need 1 mergeCol, other is redundant. Should remove mergeColDown
     let gridTest1 = [[2,2,2,2],[4,0,4,0],[0,0,0,0],[2,0,2,2]]
     let gridTest2 = [[2,2,2,2],[0,2,2,0],[0,0,0,0],[2,0,0,2]]
     let gridTest3 = [[2,8,4,4],[2,8,4,4],[2,2,2,2],[2,2,2,2]]
