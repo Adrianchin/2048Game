@@ -271,10 +271,21 @@ test("Tests for generate number", ()=>{
 
     generateNumber(gridTest1)
 
-    expect(gridTest1 === 
-        [[2,2,2,2],[4,2,4,2],[2,2,4,4],[2,0,2,2]] || 
-        [[2,2,2,2],[4,2,4,2],[2,4,4,4],[2,0,2,2]] || 
-        [[2,2,2,2],[4,2,4,2],[2,0,4,4],[2,2,2,2]] || 
-        [[2,2,2,2],[4,2,4,2],[2,0,4,4],[2,4,2,2]]
-        ).toBeTruthy()
+    function checkValues4(testGrid,matrix1,matrix2,matrix3,matrix4){//Used for checking the values of grids
+        for(let i=0; i<testGrid.length; i++){
+            for(let j=0; j<testGrid[0].length; j++){
+                if (testGrid[i][j] !== matrix1[i][j] && testGrid[i][j] !== matrix2[i][j] &&
+                    testGrid[i][j] !== matrix3[i][j] && testGrid[i][j] !== matrix4[i][j]) return false
+            }
+        }
+        return true
+    }
+
+    matrix1=[[2,2,2,2],[4,2,4,2],[2,2,4,4],[2,0,2,2]]
+    matrix2=[[2,2,2,2],[4,2,4,2],[2,4,4,4],[2,0,2,2]] 
+    matrix3=[[2,2,2,2],[4,2,4,2],[2,0,4,4],[2,2,2,2]]
+    matrix4=[[2,2,2,2],[4,2,4,2],[2,0,4,4],[2,4,2,2]]
+
+
+    expect(checkValues4(gridTest1,matrix1,matrix2,matrix3,matrix4)).toBeTruthy()
 })
