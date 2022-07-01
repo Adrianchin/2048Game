@@ -1,10 +1,10 @@
 const express = require('express');
 const app = express();
-/*
+
 app.listen(PORT = 3000, ()=> {
     console.log(`app is running on ${PORT}`)
 })
-*/
+
 
 app.get("/newGame", (req, res) => {//Creates new game (endpoint)
     create2048()
