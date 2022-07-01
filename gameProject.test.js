@@ -16,6 +16,15 @@ const {
     mergeColUp,
 } = require("./gameProject")
 
+function checkValues(testGrid,matrix1,matrix2){//Used for checking the values of grids. Had to update jest as old test was not working right
+    for(let i=0; i<testGrid.length; i++){
+        for(let j=0; j<testGrid[0].length; j++){
+            if (testGrid[i][j] !== matrix1[i][j] && testGrid[i][j] !== matrix2[i][j]) return false
+        }
+    }
+    return true
+}
+
 test("Tests for left command", ()=>{
     let gridTest1 = [[2,4,8,16],[32,64,128,256],[2,4,8,128],[32,64,256,128]]
     let gridTest2 = [[0,8,4,16],[32,64,128,256],[2,4,8,16],[32,64,128,256]]
@@ -24,7 +33,6 @@ test("Tests for left command", ()=>{
 
     let result1 = left(gridTest1)
     expect(result1).toEqual(0)
-    expect(gridTest1).toEqual([[2,4,8,16],[32,64,128,256],[2,4,8,128],[32,64,256,128]])
 
     let result2 = left(gridTest2)
     expect(result2).toEqual(-1)
@@ -33,10 +41,10 @@ test("Tests for left command", ()=>{
     expect(result3).toEqual(1)
 
     left(gridTest4)
-    expect(gridTest4 === 
-        [[0,16,16,2],[32,64,128,256],[2,4,8,16],[32,64,128,256]] || 
-        [[0,16,16,4],[32,64,128,256],[2,4,8,16],[32,64,128,256]]
-        ).toBeTruthy()
+    
+    let grid4Res1 = [[8,16,16,2],[32,64,128,256],[2,4,8,16],[32,64,128,256]]
+    let grid4Res2 = [[8,16,16,4],[32,64,128,256],[2,4,8,16],[32,64,128,256]]
+    expect(checkValues(gridTest4,grid4Res1,grid4Res2)).toBeTruthy()
 
 })
 
@@ -57,10 +65,11 @@ test("Tests for right command", ()=>{
     expect(result3).toEqual(1)
 
     right(gridTest4)
-    expect(gridTest4 === 
-        [[0,16,4,16],[32,64,128,256],[2,4,8,16],[32,64,128,256]] || 
-        [[0,16,2,16],[32,64,128,256],[2,4,8,16],[32,64,128,256]]
-        ).toBeTruthy()
+
+    let grid4Res1 = [[2,8,16,16],[32,64,128,256],[2,4,8,16],[32,64,128,256]]
+    let grid4Res2 = [[4,8,16,16],[32,64,128,256],[2,4,8,16],[32,64,128,256]]
+
+   expect(checkValues(gridTest4,grid4Res1,grid4Res2)).toBeTruthy()
 
 })
 
@@ -81,10 +90,9 @@ test("Tests for up command", ()=>{
     expect(result3).toEqual(1)
 
     up(gridTest4)
-    expect(gridTest4 === 
-        [[16,16,8,2],[2,64,128,256],[32,4,8,16],[2,64,128,256]] || 
-        [[16,16,8,2],[2,64,128,256],[32,4,8,16],[4,64,128,256]]
-        ).toBeTruthy()
+    let grid4Res1 = [[16,16,8,2],[2,64,128,256],[32,4,8,16],[2,64,128,256]] 
+    let grid4Res2 = [[16,16,8,2],[2,64,128,256],[32,4,8,16],[4,64,128,256]]
+    expect(checkValues(gridTest4,grid4Res1,grid4Res2)).toBeTruthy()
 
 })
 
@@ -105,10 +113,10 @@ test("Tests for down command", ()=>{
     expect(result3).toEqual(1)
 
     down(gridTest4)
-    expect(gridTest4 === 
-        [[4,16,8,2],[16,64,128,256],[2,4,8,16],[32,64,128,256]]|| 
-        [[2,16,8,2],[16,64,128,256],[2,4,8,16],[32,64,128,256]]
-        ).toBeTruthy()
+
+    let grid4Res1 = [[4,16,8,2],[16,64,128,256],[2,4,8,16],[32,64,128,256]]
+    let grid4Res2 = [[2,16,8,2],[16,64,128,256],[2,4,8,16],[32,64,128,256]]
+    expect(checkValues(gridTest4,grid4Res1,grid4Res2)).toBeTruthy()
 
 })
 

@@ -1,9 +1,10 @@
 const express = require('express');
 const app = express();
-
+/*
 app.listen(PORT = 3000, ()=> {
     console.log(`app is running on ${PORT}`)
 })
+*/
 
 app.get("/newGame", (req, res) => {//Creates new game (endpoint)
     create2048()
@@ -71,12 +72,32 @@ function up(grid){//Push up command
         if(isLost(grid)){//Loss condition - Only returns if NO moves possible, could be a loss if 2 or 4 is chosen (a lucky 2 would be a win and you got a 4, or vice versa)
             return -1//Return -1 for loss
         }
+    }else if(mergeColUp(grid)){//Added this later as I realized the jest test had an error. This allows for testing if merge is possible.
+        moveUp(grid)
+        if(isWin(grid)){
+            return 1//Return 1 for win
+        }
+        generateNumber(grid) 
+
+        if(isLost(grid)){
+            return -1
+        }
     }
     else return 0//Return 0 for no moves to be done 
 }
 function down(grid){//Move down command
     if(moveDown(grid)){
         mergeColUp(grid)//Merge values - I made mergeColUp and mergeColDown, realized I only need 1, the other is redundant 
+        moveDown(grid)
+        if(isWin(grid)){
+            return 1
+        }
+        generateNumber(grid)
+
+        if(isLost(grid)){
+            return -1
+        }
+    }else if(mergeColUp(grid)){
         moveDown(grid)
         if(isWin(grid)){
             return 1
@@ -101,12 +122,32 @@ function left(grid){//Move left command
         if(isLost(grid)){
             return -1
         }
+    }else if(mergeRowLeft(grid)){
+        moveLeft(grid)
+        if(isWin(grid)){
+            return 1
+        }
+        generateNumber(grid)
+
+        if(isLost(grid)){
+            return -1
+        }
     }
     else return 0
 }
 function right(grid){//Right command
     if(moveRight(grid)){
         mergeRowLeft(grid)//Merge values - I made mergeRowLeft and mergeRowRight, realized I only need 1, the other is redundant 
+        moveRight(grid)
+        if(isWin(grid)){
+            return 1
+        }
+        generateNumber(grid)
+
+        if(isLost(grid)){
+            return -1
+        }
+    }else if(mergeRowLeft(grid)){
         moveRight(grid)
         if(isWin(grid)){
             return 1
@@ -140,7 +181,6 @@ function isWin(grid){//Checks for if you won, really I could place this in the m
     for(let i=0; i<grid.length; i++){
         for(let j=0; j<grid[0].length; j++){
             if(grid[i][j] === 2048){
-                console.log("YOU WIN")
                 return true
             }
         }
@@ -230,27 +270,33 @@ function moveDown(grid){//Move down (move only)
 }
 
 function mergeRowLeft(grid){//merge left (merge only)
+    let moves = 0 //Added this counter later as I realized the jest test had an error. This allows for returning a number if merge is done.
     for(let i=0; i<grid.length; i++){//each row top to bottom
         for(let j=1; j<grid[i].length; j++){//each column left +1 to right
             if(grid[i][j] == grid[i][j-1]){
                 grid[i][j-1] = 2*grid[i][j-1]
                 grid[i][j] = 0
+                moves++
             }
         }
     }
+    return moves
 }
 
 
 
 function mergeColUp(grid){//merge up (merge only)
+    let moves = 0 //Added this counter later as I realized the jest test had an error. This allows for returning a number if merge is done
     for(let j=0; j<grid[0].length; j++){//each column left to right
         for(let i=1; i<grid.length; i++){//each row top -1 down
             if(grid[i][j] === grid[i-1][j]){
                 grid[i-1][j] = 2*grid[i-1][j]
                 grid[i][j] = 0
+                moves++
             }
         }
     }
+    return moves
 }
 
 /*
